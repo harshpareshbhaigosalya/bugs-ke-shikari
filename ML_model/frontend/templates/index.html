@@ -1,0 +1,117 @@
+<!-- templates/index.html -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Expense Admin Dashboard</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://unpkg.com/feather-icons"></script>
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="logo">ExpenseAdmin</div>
+      <nav class="nav">
+        <a class="nav-item active" data-view="dashboard"><i data-feather="home"></i> Dashboard</a>
+        <a class="nav-item" data-view="approvals"><i data-feather="check-square"></i> Approvals</a>
+        <a class="nav-item" data-view="reports"><i data-feather="bar-chart-2"></i> Reports</a>
+        <a class="nav-item" data-view="settings"><i data-feather="settings"></i> Settings</a>
+      </nav>
+      <div class="sidebar-footer">Admin • demo_co</div>
+    </aside>
+
+    <div class="main">
+      <header class="topbar">
+        <div class="search">
+          <input id="searchInput" placeholder="Search category or company..." />
+        </div>
+        <div class="top-controls">
+          <button id="exportBtn" class="btn small ghost"><i data-feather="download"></i> Export CSV</button>
+          <button id="refreshBtn" class="btn small"><i data-feather="refresh-cw"></i> Refresh</button>
+        </div>
+      </header>
+
+      <main class="container">
+        <section class="top-cards">
+          <div class="card kpi">
+            <div class="kpi-title">Total Forecast</div>
+            <div class="kpi-value" id="totalForecast">—</div>
+            <div class="kpi-sub">Next month total predicted</div>
+          </div>
+          <div class="card kpi">
+            <div class="kpi-title">Categories</div>
+            <div class="kpi-value" id="numCategories">—</div>
+            <div class="kpi-sub">Unique categories</div>
+          </div>
+          <div class="card kpi">
+            <div class="kpi-title">Top Category</div>
+            <div class="kpi-value" id="topCategory">—</div>
+            <div class="kpi-sub">Highest predicted spend</div>
+          </div>
+          <div class="card kpi">
+            <div class="kpi-title">Confidence</div>
+            <div class="kpi-value" id="confidence">High</div>
+            <div class="kpi-sub">Model confidence (static)</div>
+          </div>
+        </section>
+
+        <section class="controls">
+          <div class="view-toggle">
+            <button class="btn toggle active" data-toggle="chart">Chart</button>
+            <button class="btn toggle" data-toggle="table">Table</button>
+          </div>
+
+          <div class="filters">
+            <select id="categoryFilter">
+              <option value="">All categories</option>
+            </select>
+          </div>
+        </section>
+
+        <section id="chartView" class="card big-chart">
+          <h3>Next Month Forecast by Category</h3>
+          <canvas id="barChart" height="120"></canvas>
+        </section>
+
+        <section id="tableView" class="card table-card hidden">
+          <h3>Predictions Table</h3>
+          <div class="table-wrap">
+            <table id="predTable">
+              <thead>
+                <tr>
+                  <th>Company</th>
+                  <th>Category</th>
+                  <th>Month</th>
+                  <th>Predicted</th>
+                  <th>Trend</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">© Expense Manager</footer>
+    </div>
+  </div>
+
+  <!-- Modal: details -->
+  <div id="detailModal" class="modal hidden">
+    <div class="modal-content">
+      <button class="modal-close" id="modalClose"><i data-feather="x"></i></button>
+      <h4 id="modalTitle">Details</h4>
+      <canvas id="modalChart" height="160"></canvas>
+      <div class="modal-footer">
+        <button class="btn" id="modalExport">Export Category CSV</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  <script>feather.replace()</script>
+</body>
+</html>
