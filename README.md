@@ -1,9 +1,5 @@
 # 💰 Expense Management System
 
-### 🧠 With Machine Learning Expense Prediction
-
----
-
 ## 🚀 Overview
 
 Managing company expenses manually is time-consuming, error-prone, and lacks transparency. Our project automates the **expense reimbursement and approval process** while integrating **Machine Learning** to **predict next month’s total expenses** based on past data.
